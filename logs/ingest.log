@@ -1,0 +1,1413 @@
+2026-05-20 19:12:54 | INFO     | ingest | ============================================================
+2026-05-20 19:12:54 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:12:54 | INFO     | ingest | ============================================================
+2026-05-20 19:14:10 | INFO     | ingest | ============================================================
+2026-05-20 19:14:10 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:14:10 | INFO     | ingest | ============================================================
+2026-05-20 19:14:10 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:14:14 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:14:14 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:14:14 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:14:14 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:14:14 | INFO     | src.vectorstore.pinecone_client | Creating Pinecone index 'multimodal-rag' …
+2026-05-20 19:14:20 | INFO     | src.vectorstore.pinecone_client | Index created.
+2026-05-20 19:14:20 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:14:20 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:15:23 | INFO     | ingest | ============================================================
+2026-05-20 19:15:23 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:15:23 | INFO     | ingest | ============================================================
+2026-05-20 19:15:23 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:15:23 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:15:23 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:15:23 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:15:23 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:15:23 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:15:23 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:15:35 | INFO     | ingest | ============================================================
+2026-05-20 19:15:35 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:15:35 | INFO     | ingest | ============================================================
+2026-05-20 19:15:35 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:15:35 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:15:35 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:15:35 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:15:35 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:15:35 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:15:35 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:15:35 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 19:15:35 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 19:15:35 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 19:15:35 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 19:15:38 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 19:15:38 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 19:15:39 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 19:15:39 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/xet-read-token/4e61f368f22f733538e49a27234f32b6d41e7209 "HTTP/1.1 200 OK"
+2026-05-20 19:16:21 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 19:16:21 | ERROR    | ingest | Failed to ingest bis_annual_report_2023.pdf: Unable to get page count. Is poppler installed and in PATH?
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 581, in pdfinfo_from_path
+    proc = Popen(command, env=env, stdout=PIPE, stderr=PIPE)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/subprocess.py", line 1024, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/subprocess.py", line 1917, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pdfinfo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 171, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 310, in partition_pdf_or_image
+    elements = _partition_pdf_or_image_local(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/utils.py", line 249, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 564, in _partition_pdf_or_image_local
+    inferred_document_layout = process_file_with_model(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 370, in process_file_with_model
+    else DocumentLayout.from_file(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 62, in from_file
+    _image_paths = convert_pdf_to_image(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 394, in convert_pdf_to_image
+    images = pdf2image.convert_from_path(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 607, in pdfinfo_from_path
+    raise PDFInfoNotInstalledError(
+pdf2image.exceptions.PDFInfoNotInstalledError: Unable to get page count. Is poppler installed and in PATH?
+2026-05-20 19:16:21 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 19:21:23 | INFO     | ingest | ============================================================
+2026-05-20 19:21:23 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:21:23 | INFO     | ingest | ============================================================
+2026-05-20 19:21:23 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:21:23 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:21:23 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:21:23 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:21:23 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:21:24 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:21:24 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:21:24 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 19:21:24 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 19:21:24 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 19:21:24 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 19:21:24 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 19:21:24 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 19:21:24 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 19:21:25 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 19:25:17 | INFO     | unstructured_inference | Loading the Table agent ...
+2026-05-20 19:25:17 | INFO     | unstructured_inference | Loading the table structure model ...
+2026-05-20 19:25:17 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-20 19:25:17 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 19:25:17 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 19:25:17 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 19:25:18 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-20 19:25:18 | INFO     | httpx | HTTP Request: GET https://huggingface.co/api/models/microsoft/table-transformer-structure-recognition/xet-read-token/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343 "HTTP/1.1 200 OK"
+2026-05-20 19:29:51 | ERROR    | ingest | Failed to ingest bis_annual_report_2023.pdf: HTTP Error 403: Forbidden
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 171, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 330, in partition_pdf_or_image
+    out_elements = _process_uncategorized_text_elements(elements)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 930, in _process_uncategorized_text_elements
+    new_el = element_from_text(cast(Text, el).text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/text.py", line 295, in element_from_text
+    elif is_possible_narrative_text(text):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/text_type.py", line 80, in is_possible_narrative_text
+    if exceeds_cap_ratio(text, threshold=cap_threshold):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/text_type.py", line 276, in exceeds_cap_ratio
+    if sentence_count(text, 3) > 1:
+       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/text_type.py", line 225, in sentence_count
+    sentences = sent_tokenize(text)
+                ^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/nlp/tokenize.py", line 136, in sent_tokenize
+    _download_nltk_packages_if_not_present()
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/nlp/tokenize.py", line 130, in _download_nltk_packages_if_not_present
+    download_nltk_packages()
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/nlp/tokenize.py", line 88, in download_nltk_packages
+    urllib.request.urlretrieve(NLTK_DATA_URL, tgz_file_path)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 241, in urlretrieve
+    with contextlib.closing(urlopen(url, data)) as fp:
+                            ^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 525, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+2026-05-20 19:29:51 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 19:32:21 | INFO     | ingest | ============================================================
+2026-05-20 19:32:21 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:32:21 | INFO     | ingest | ============================================================
+2026-05-20 19:32:21 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:32:22 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:32:22 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:32:22 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:32:22 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:32:22 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:32:22 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:32:22 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 19:32:22 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 19:32:22 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 19:32:22 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 19:32:22 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 19:32:31 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 19:32:31 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 19:32:31 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 19:36:39 | INFO     | unstructured_inference | Loading the Table agent ...
+2026-05-20 19:36:39 | INFO     | unstructured_inference | Loading the table structure model ...
+2026-05-20 19:36:39 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-20 19:36:39 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 19:36:40 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-20 19:41:01 | INFO     | ingest |      Parsed — Text: 0 | Tables: 3 | Images: 0
+2026-05-20 19:41:01 | INFO     | ingest |   → Step 2/4: Summarising images with GPT-4o Vision …
+2026-05-20 19:41:01 | ERROR    | ingest | Failed to ingest bis_annual_report_2023.pdf: 'ImageSummarizer' object has no attribute 'summarize_batch'
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 182, in ingest_file
+    image_summaries = pipeline.image_summarizer.summarize_batch(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ImageSummarizer' object has no attribute 'summarize_batch'
+2026-05-20 19:41:01 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 19:42:16 | INFO     | ingest | ============================================================
+2026-05-20 19:42:16 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:42:16 | INFO     | ingest | ============================================================
+2026-05-20 19:42:16 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:42:16 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:42:16 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:42:16 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:42:16 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:42:17 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:42:17 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:42:17 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 19:42:17 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 19:42:17 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 19:42:17 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 19:42:17 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 19:42:26 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 19:42:27 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 19:47:00 | INFO     | unstructured_inference | Loading the Table agent ...
+2026-05-20 19:47:00 | INFO     | unstructured_inference | Loading the table structure model ...
+2026-05-20 19:47:00 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-20 19:47:00 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 19:47:00 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-20 19:51:20 | INFO     | ingest |      Parsed — Text: 0 | Tables: 3 | Images: 0
+2026-05-20 19:51:20 | INFO     | ingest |   → Step 2/4: Summarising images with GPT-4o Vision …
+2026-05-20 19:51:20 | INFO     | ingest |      Summarised 0 image(s).
+2026-05-20 19:51:20 | INFO     | ingest |   → Step 3/4: Processing tables …
+2026-05-20 19:51:20 | INFO     | src.ingestion.table_processor | TableProcessor: 3/3 tables extracted successfully.
+2026-05-20 19:51:20 | INFO     | ingest |      Extracted 3 table(s).
+2026-05-20 19:51:20 | INFO     | ingest |   → Step 4/4: Chunking …
+2026-05-20 19:51:20 | INFO     | src.ingestion.chunker | Chunking complete | text=0 | table=3 | image=0 chunks
+2026-05-20 19:51:20 | INFO     | ingest |      Chunks — Text: 0 | Tables: 3 | Images: 0
+2026-05-20 19:51:20 | INFO     | ingest |   Embedding cost estimate: 5,620 tokens ≈ $0.0007
+2026-05-20 19:51:20 | INFO     | src.pipeline.ingest_pipeline |   [table] 3 chunks | ~5,620 tokens | ~$0.0007
+2026-05-20 19:51:20 | INFO     | src.embeddings.embedder | Embedding batch 1/1 (3 texts)
+2026-05-20 19:51:22 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 19:51:22 | INFO     | src.embeddings.embedder | Embedded 3 texts successfully.
+2026-05-20 19:51:23 | ERROR    | ingest | Failed to ingest bis_annual_report_2023.pdf: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 20 May 2026 23:51:24 GMT', 'Content-Type': 'application/json', 'Content-Length': '139', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '124', 'x-envoy-upstream-service-time': '145', 'x-pinecone-response-duration-ms': '283', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Metadata value must be a string, number, boolean or list of strings, got 'null' for field 'page_number'","details":[]}
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 227, in ingest_file
+    pipeline.upsert_chunks(chunks, source_file=pdf_path.name)
+  File "/Users/RAG_MultiModalPDF_retrieval/src/pipeline/ingest_pipeline.py", line 142, in upsert_chunks
+    self.pinecone_client.upsert_chunks(vectors, element_type=element_type)
+  File "/Users/RAG_MultiModalPDF_retrieval/src/vectorstore/pinecone_client.py", line 89, in upsert_chunks
+    self.index.upsert(vectors=batch, namespace=namespace)
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/utils/error_handling.py", line 11, in inner_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/data/index.py", line 175, in upsert
+    return self._upsert_batch(vectors, namespace, _check_type, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/data/index.py", line 204, in _upsert_batch
+    return self._vector_api.upsert(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 761, in __call__
+    return self.callable(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/data/api/data_plane_api.py", line 811, in __upsert
+    return self.call_with_http_info(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 819, in call_with_http_info
+    return self.api_client.call_api(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 380, in call_api
+    return self.__call_api(
+           ^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 187, in __call_api
+    raise e
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 175, in __call_api
+    response_data = self.request(
+                    ^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/api_client.py", line 460, in request
+    return self.rest_client.POST(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/rest.py", line 343, in POST
+    return self.request(
+           ^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone/core/openapi/shared/rest.py", line 277, in request
+    raise PineconeApiException(http_resp=r)
+pinecone.core.openapi.shared.exceptions.PineconeApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 20 May 2026 23:51:24 GMT', 'Content-Type': 'application/json', 'Content-Length': '139', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '124', 'x-envoy-upstream-service-time': '145', 'x-pinecone-response-duration-ms': '283', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Metadata value must be a string, number, boolean or list of strings, got 'null' for field 'page_number'","details":[]}
+
+2026-05-20 19:51:23 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 19:53:40 | INFO     | ingest | ============================================================
+2026-05-20 19:53:40 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 19:53:40 | INFO     | ingest | ============================================================
+2026-05-20 19:53:40 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 19:53:40 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 19:53:40 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 19:53:40 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 19:53:40 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 19:53:40 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 19:53:40 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 19:53:40 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 19:53:40 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 19:53:40 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 19:53:40 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 19:53:40 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 19:53:49 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 19:53:49 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 19:53:49 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 19:58:00 | INFO     | unstructured_inference | Loading the Table agent ...
+2026-05-20 19:58:00 | INFO     | unstructured_inference | Loading the table structure model ...
+2026-05-20 19:58:02 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-20 19:58:02 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 19:58:02 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-20 20:02:20 | INFO     | ingest |      Parsed — Text: 0 | Tables: 3 | Images: 0
+2026-05-20 20:02:20 | INFO     | ingest |   → Step 2/4: Summarising images with GPT-4o Vision …
+2026-05-20 20:02:20 | INFO     | ingest |      Summarised 0 image(s).
+2026-05-20 20:02:20 | INFO     | ingest |   → Step 3/4: Processing tables …
+2026-05-20 20:02:20 | INFO     | src.ingestion.table_processor | TableProcessor: 3/3 tables extracted successfully.
+2026-05-20 20:02:20 | INFO     | ingest |      Extracted 3 table(s).
+2026-05-20 20:02:20 | INFO     | ingest |   → Step 4/4: Chunking …
+2026-05-20 20:02:21 | INFO     | src.ingestion.chunker | Chunking complete | text=0 | table=3 | image=0 chunks
+2026-05-20 20:02:21 | INFO     | ingest |      Chunks — Text: 0 | Tables: 3 | Images: 0
+2026-05-20 20:02:21 | INFO     | ingest |   Embedding cost estimate: 5,620 tokens ≈ $0.0007
+2026-05-20 20:02:21 | INFO     | src.pipeline.ingest_pipeline |   [table] 3 chunks | ~5,620 tokens | ~$0.0007
+2026-05-20 20:02:21 | INFO     | src.embeddings.embedder | Embedding batch 1/1 (3 texts)
+2026-05-20 20:02:27 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 20:02:27 | INFO     | src.embeddings.embedder | Embedded 3 texts successfully.
+2026-05-20 20:02:29 | INFO     | src.vectorstore.pinecone_client | Upserted 3 vectors → 'pdf-tables'
+2026-05-20 20:02:29 | INFO     | src.pipeline.ingest_pipeline |   [table] Upserted 3 vectors to Pinecone.
+2026-05-20 20:02:29 | INFO     | ingest |   Upserted all chunks to Pinecone.
+2026-05-20 20:02:29 | INFO     | ingest | Ingestion complete. ✓
+2026-05-20 21:21:26 | INFO     | ingest | ============================================================
+2026-05-20 21:21:26 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:21:26 | INFO     | ingest | ============================================================
+2026-05-20 21:21:26 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:21:26 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:21:26 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 21:21:26 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 21:21:26 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 21:21:27 | INFO     | src.vectorstore.pinecone_client | Creating Pinecone index 'multimodal-rag' …
+2026-05-20 21:21:32 | INFO     | src.vectorstore.pinecone_client | Index created.
+2026-05-20 21:21:32 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 21:21:32 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 21:21:32 | WARNING  | ingest | --reset flag: deleting existing Pinecone index …
+2026-05-20 21:21:32 | WARNING  | src.vectorstore.pinecone_client | Deleting index 'multimodal-rag' …
+2026-05-20 21:21:37 | INFO     | src.vectorstore.pinecone_client | Index deleted.
+2026-05-20 21:21:37 | INFO     | ingest | Index deleted. Will be recreated on first upsert.
+2026-05-20 21:47:30 | INFO     | ingest | ============================================================
+2026-05-20 21:47:30 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:47:30 | INFO     | ingest | ============================================================
+2026-05-20 21:47:30 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:47:30 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:47:30 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=True
+2026-05-20 21:47:54 | INFO     | ingest | ============================================================
+2026-05-20 21:47:54 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:47:54 | INFO     | ingest | ============================================================
+2026-05-20 21:47:54 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:47:54 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:47:54 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=True
+2026-05-20 21:47:54 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 21:47:54 | INFO     | ingest | [DRY RUN] Processing: fdic_stats_guide_2023.pdf
+2026-05-20 21:47:54 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 21:47:54 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/fdic_stats_guide_2023.pdf
+2026-05-20 21:47:55 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 21:47:55 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 21:47:55 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 21:47:55 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 21:47:56 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/fdic_stats_guide_2023.pdf ...
+2026-05-20 21:47:56 | ERROR    | ingest | Failed to ingest fdic_stats_guide_2023.pdf: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 602, in pdfinfo_from_path
+    raise ValueError
+ValueError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 135, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 310, in partition_pdf_or_image
+    elements = _partition_pdf_or_image_local(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/utils.py", line 249, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 564, in _partition_pdf_or_image_local
+    inferred_document_layout = process_file_with_model(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 370, in process_file_with_model
+    else DocumentLayout.from_file(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 62, in from_file
+    _image_paths = convert_pdf_to_image(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 394, in convert_pdf_to_image
+    images = pdf2image.convert_from_path(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 611, in pdfinfo_from_path
+    raise PDFPageCountError(
+pdf2image.exceptions.PDFPageCountError: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+
+2026-05-20 21:47:56 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 21:49:46 | INFO     | ingest | ============================================================
+2026-05-20 21:49:46 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:49:46 | INFO     | ingest | ============================================================
+2026-05-20 21:49:46 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:49:46 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:49:46 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=True
+2026-05-20 21:49:46 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 21:49:46 | INFO     | ingest | [DRY RUN] Processing: fdic_stats_guide_2023.pdf
+2026-05-20 21:49:46 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 21:49:46 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/fdic_stats_guide_2023.pdf
+2026-05-20 21:49:47 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 21:49:47 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 21:49:47 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 21:49:47 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 21:49:48 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/fdic_stats_guide_2023.pdf ...
+2026-05-20 21:49:48 | ERROR    | ingest | Failed to ingest fdic_stats_guide_2023.pdf: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 602, in pdfinfo_from_path
+    raise ValueError
+ValueError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 135, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 310, in partition_pdf_or_image
+    elements = _partition_pdf_or_image_local(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/utils.py", line 249, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 564, in _partition_pdf_or_image_local
+    inferred_document_layout = process_file_with_model(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 370, in process_file_with_model
+    else DocumentLayout.from_file(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 62, in from_file
+    _image_paths = convert_pdf_to_image(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 394, in convert_pdf_to_image
+    images = pdf2image.convert_from_path(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 611, in pdfinfo_from_path
+    raise PDFPageCountError(
+pdf2image.exceptions.PDFPageCountError: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+
+2026-05-20 21:49:48 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 21:54:38 | INFO     | ingest | ============================================================
+2026-05-20 21:54:38 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:54:38 | INFO     | ingest | ============================================================
+2026-05-20 21:54:38 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:54:38 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:54:38 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 21:54:38 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 21:54:38 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 21:54:39 | INFO     | src.vectorstore.pinecone_client | Creating Pinecone index 'multimodal-rag' …
+2026-05-20 21:54:44 | INFO     | src.vectorstore.pinecone_client | Index created.
+2026-05-20 21:54:44 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 21:54:44 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 21:54:44 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 21:54:44 | INFO     | ingest | Processing: fdic_stats_guide_2023.pdf
+2026-05-20 21:54:44 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 21:54:44 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/fdic_stats_guide_2023.pdf
+2026-05-20 21:54:44 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 21:54:45 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 21:54:45 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 21:54:45 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 21:54:45 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/fdic_stats_guide_2023.pdf ...
+2026-05-20 21:54:45 | ERROR    | ingest | Failed to ingest fdic_stats_guide_2023.pdf: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 602, in pdfinfo_from_path
+    raise ValueError
+ValueError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest.py", line 135, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 310, in partition_pdf_or_image
+    elements = _partition_pdf_or_image_local(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/utils.py", line 249, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 564, in _partition_pdf_or_image_local
+    inferred_document_layout = process_file_with_model(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 370, in process_file_with_model
+    else DocumentLayout.from_file(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 62, in from_file
+    _image_paths = convert_pdf_to_image(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 394, in convert_pdf_to_image
+    images = pdf2image.convert_from_path(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 611, in pdfinfo_from_path
+    raise PDFPageCountError(
+pdf2image.exceptions.PDFPageCountError: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+
+2026-05-20 21:54:45 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 21:55:06 | INFO     | ingest | ============================================================
+2026-05-20 21:55:06 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:55:06 | INFO     | ingest | ============================================================
+2026-05-20 21:55:06 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:55:06 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:55:06 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 21:55:06 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 21:55:06 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 21:55:07 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 21:55:07 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 21:55:07 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 21:55:07 | INFO     | ingest | Processing: fdic_stats_guide_2023.pdf
+2026-05-20 21:55:07 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 21:55:07 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/fdic_stats_guide_2023.pdf
+2026-05-20 21:55:07 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 21:55:07 | INFO     | unstructured | PDF text extraction failed, skip text extraction...
+2026-05-20 21:55:07 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 21:55:07 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/fdic_stats_guide_2023.pdf ...
+2026-05-20 21:55:07 | ERROR    | ingest | Failed to ingest fdic_stats_guide_2023.pdf: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 602, in pdfinfo_from_path
+    raise ValueError
+ValueError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/RAG_MultiModalPDF_retrieval/scripts/ingest_1.py", line 135, in ingest_file
+    parsed = pipeline.parser.parse(str(pdf_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/src/ingestion/pdf_parser.py", line 17, in parse
+    elements = partition_pdf(
+               ^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/documents/elements.py", line 593, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 429, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/file_utils/filetype.py", line 385, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 208, in partition_pdf
+    return partition_pdf_or_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 310, in partition_pdf_or_image
+    elements = _partition_pdf_or_image_local(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/utils.py", line 249, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured/partition/pdf.py", line 564, in _partition_pdf_or_image_local
+    inferred_document_layout = process_file_with_model(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 370, in process_file_with_model
+    else DocumentLayout.from_file(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 62, in from_file
+    _image_paths = convert_pdf_to_image(
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/unstructured_inference/inference/layout.py", line 394, in convert_pdf_to_image
+    images = pdf2image.convert_from_path(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 127, in convert_from_path
+    page_count = pdfinfo_from_path(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pdf2image/pdf2image.py", line 611, in pdfinfo_from_path
+    raise PDFPageCountError(
+pdf2image.exceptions.PDFPageCountError: Unable to get page count.
+Syntax Warning: May not be a PDF file (continuing anyway)
+Syntax Error (2): Illegal character <21> in hex string
+Syntax Error (4): Illegal character <4f> in hex string
+Syntax Error (6): Illegal character <54> in hex string
+Syntax Error (7): Illegal character <59> in hex string
+Syntax Error (8): Illegal character <50> in hex string
+Syntax Error (11): Illegal character <68> in hex string
+Syntax Error (12): Illegal character <74> in hex string
+Syntax Error (13): Illegal character <6d> in hex string
+Syntax Error (14): Illegal character <6c> in hex string
+Syntax Error (18): Illegal character <68> in hex string
+Syntax Error (19): Illegal character <74> in hex string
+Syntax Error (20): Illegal character <6d> in hex string
+Syntax Error (21): Illegal character <6c> in hex string
+Syntax Error (23): Illegal character <6c> in hex string
+Syntax Error (25): Illegal character <6e> in hex string
+Syntax Error (26): Illegal character <67> in hex string
+Syntax Error (27): Illegal character <3d> in hex string
+Syntax Error (28): Illegal character <22> in hex string
+Syntax Error (30): Illegal character <6e> in hex string
+Syntax Error (31): Illegal character <22> in hex string
+Syntax Error (34): Illegal character <69> in hex string
+Syntax Error (35): Illegal character <72> in hex string
+Syntax Error (36): Illegal character <3d> in hex string
+Syntax Error (37): Illegal character <22> in hex string
+Syntax Error (38): Illegal character <6c> in hex string
+Syntax Error (39): Illegal character <74> in hex string
+Syntax Error (40): Illegal character <72> in hex string
+Syntax Error (41): Illegal character <22> in hex string
+Syntax Error (43): Illegal character <70> in hex string
+Syntax Error (44): Illegal character <72> in hex string
+Syntax Error (47): Illegal character <69> in hex string
+Syntax Error (48): Illegal character <78> in hex string
+Syntax Error (49): Illegal character <3d> in hex string
+Syntax Error (50): Illegal character <22> in hex string
+Syntax Error (51): Illegal character <6f> in hex string
+Syntax Error (52): Illegal character <67> in hex string
+Syntax Error (53): Illegal character <3a> in hex string
+Syntax Error (55): Illegal character <68> in hex string
+Syntax Error (56): Illegal character <74> in hex string
+Syntax Error (57): Illegal character <74> in hex string
+Syntax Error (58): Illegal character <70> in hex string
+Syntax Error (59): Illegal character <73> in hex string
+Syntax Error (60): Illegal character <3a> in hex string
+Syntax Error (61): Illegal character <2f> in hex string
+Syntax Error (62): Illegal character <2f> in hex string
+Syntax Error (63): Illegal character <6f> in hex string
+Syntax Error (64): Illegal character <67> in hex string
+Syntax Error (65): Illegal character <70> in hex string
+Syntax Error (66): Illegal character <2e> in hex string
+Syntax Error (67): Illegal character <6d> in hex string
+Syntax Error (69): Illegal character <2f> in hex string
+Syntax Error (70): Illegal character <6e> in hex string
+Syntax Error (71): Illegal character <73> in hex string
+Syntax Error (72): Illegal character <23> in hex string
+Syntax Error (73): Illegal character <22> in hex string
+Syntax Error (77): Illegal character <68> in hex string
+Syntax Error (86): Illegal character <6d> in hex string
+Syntax Error (88): Illegal character <74> in hex string
+Syntax Error (92): Illegal character <68> in hex string
+Syntax Error (94): Illegal character <72> in hex string
+Syntax Error (95): Illegal character <73> in hex string
+Syntax Error (97): Illegal character <74> in hex string
+Syntax Error (98): Illegal character <3d> in hex string
+Syntax Error (99): Illegal character <22> in hex string
+Syntax Error (100): Illegal character <75> in hex string
+Syntax Error (101): Illegal character <74> in hex string
+Syntax Error (103): Illegal character <2d> in hex string
+Syntax Error (105): Illegal character <22> in hex string
+Syntax Error (107): Illegal character <2f> in hex string
+Syntax Error (111): Illegal character <6e> in hex string
+Syntax Error (112): Illegal character <6f> in hex string
+Syntax Error (113): Illegal character <73> in hex string
+Syntax Error (115): Illegal character <72> in hex string
+Syntax Error (116): Illegal character <69> in hex string
+Syntax Error (117): Illegal character <70> in hex string
+Syntax Error (118): Illegal character <74> in hex string
+Syntax Error (121): Illegal character <73> in hex string
+Syntax Error (122): Illegal character <74> in hex string
+Syntax Error (123): Illegal character <79> in hex string
+Syntax Error (124): Illegal character <6c> in hex string
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't find trailer dictionary
+Syntax Error: Couldn't read xref table
+
+2026-05-20 21:55:07 | ERROR    | ingest | 1 file(s) failed. Check logs/ingest.log for details.
+2026-05-20 21:55:52 | INFO     | ingest | ============================================================
+2026-05-20 21:55:52 | INFO     | ingest |   Multimodal RAG — Ingestion Pipeline
+2026-05-20 21:55:52 | INFO     | ingest | ============================================================
+2026-05-20 21:55:52 | INFO     | src.ingestion.chunker | Chunker initialised | chunk_size=1000 | overlap=200
+2026-05-20 21:55:52 | INFO     | src.embeddings.embedder | Embedder initialised | model=text-embedding-3-large | dimensions=3072 | batch_size=100
+2026-05-20 21:55:52 | INFO     | pinecone_plugin_interface.logging | Discovering subpackages in _NamespacePath(['/Users/RAG_MultiModalPDF_retrieval/venv/lib/python3.11/site-packages/pinecone_plugins'])
+2026-05-20 21:55:52 | INFO     | pinecone_plugin_interface.logging | Looking for plugins in pinecone_plugins.inference
+2026-05-20 21:55:52 | INFO     | pinecone_plugin_interface.logging | Installing plugin inference into Pinecone
+2026-05-20 21:55:53 | INFO     | src.vectorstore.pinecone_client | PineconeClient ready | index=multimodal-rag | region=us-east-1
+2026-05-20 21:55:53 | INFO     | src.pipeline.ingest_pipeline | IngestPipeline ready | dry_run=False
+2026-05-20 21:55:53 | INFO     | ingest | Found 1 PDF file(s) to process.
+2026-05-20 21:55:53 | INFO     | ingest | Processing: bis_annual_report_2023.pdf
+2026-05-20 21:55:53 | INFO     | ingest |   → Step 1/4: Parsing PDF with unstructured.io …
+2026-05-20 21:55:53 | INFO     | src.ingestion.pdf_parser | Parsing PDF: data/sample_pdfs/bis_annual_report_2023.pdf
+2026-05-20 21:55:53 | INFO     | pikepdf._core | pikepdf C++ to Python logger bridge initialized
+2026-05-20 21:56:01 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/unstructuredio/detectron2_faster_rcnn_R_50_FPN_3x/resolve/main/model.onnx "HTTP/1.1 302 Found"
+2026-05-20 21:56:01 | WARNING  | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-20 21:56:02 | INFO     | unstructured_inference | Reading PDF for file: data/sample_pdfs/bis_annual_report_2023.pdf ...
+2026-05-20 22:00:31 | INFO     | unstructured_inference | Loading the Table agent ...
+2026-05-20 22:00:31 | INFO     | unstructured_inference | Loading the table structure model ...
+2026-05-20 22:00:32 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-20 22:00:32 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/table-transformer-structure-recognition/f4d4bdc85c3fe4b1fa49658882a5d38bbdd0f343/config.json "HTTP/1.1 200 OK"
+2026-05-20 22:00:32 | INFO     | httpx | HTTP Request: HEAD https://huggingface.co/microsoft/table-transformer-structure-recognition/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-20 22:04:54 | INFO     | ingest |      Parsed — Text: 2784 | Tables: 3 | Images: 5
+2026-05-20 22:04:54 | INFO     | ingest |   → Step 2/4: Summarising images with GPT-4o Vision …
+2026-05-20 22:04:54 | INFO     | ingest |      Summarised 5 image(s).
+2026-05-20 22:04:54 | INFO     | ingest |   → Step 3/4: Processing tables …
+2026-05-20 22:04:54 | INFO     | src.ingestion.table_processor | TableProcessor: 3/3 tables extracted successfully.
+2026-05-20 22:04:54 | INFO     | ingest |      Extracted 3 table(s).
+2026-05-20 22:04:54 | INFO     | ingest |   → Step 4/4: Chunking …
+2026-05-20 22:04:54 | INFO     | src.ingestion.chunker | Chunking complete | text=776 | table=3 | image=5 chunks
+2026-05-20 22:04:54 | INFO     | ingest |      Chunks — Text: 776 | Tables: 3 | Images: 5
+2026-05-20 22:04:54 | INFO     | ingest |   Embedding cost estimate: 74,410 tokens ≈ $0.0097
+2026-05-20 22:04:54 | INFO     | src.pipeline.ingest_pipeline |   [text] 776 chunks | ~68,577 tokens | ~$0.0089
+2026-05-20 22:04:54 | INFO     | src.embeddings.embedder | Embedding batch 1/8 (100 texts)
+2026-05-20 22:04:56 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:04:57 | INFO     | src.embeddings.embedder | Embedding batch 2/8 (100 texts)
+2026-05-20 22:04:57 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:00 | INFO     | src.embeddings.embedder | Embedding batch 3/8 (100 texts)
+2026-05-20 22:05:01 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:02 | INFO     | src.embeddings.embedder | Embedding batch 4/8 (100 texts)
+2026-05-20 22:05:04 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:04 | INFO     | src.embeddings.embedder | Embedding batch 5/8 (100 texts)
+2026-05-20 22:05:05 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:06 | INFO     | src.embeddings.embedder | Embedding batch 6/8 (100 texts)
+2026-05-20 22:05:07 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:09 | INFO     | src.embeddings.embedder | Embedding batch 7/8 (100 texts)
+2026-05-20 22:05:09 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:10 | INFO     | src.embeddings.embedder | Embedding batch 8/8 (76 texts)
+2026-05-20 22:05:11 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:11 | INFO     | src.embeddings.embedder | Embedded 776 texts successfully.
+2026-05-20 22:05:31 | INFO     | src.vectorstore.pinecone_client | Upserted 776 vectors → 'pdf-text'
+2026-05-20 22:05:31 | INFO     | src.pipeline.ingest_pipeline |   [text] Upserted 776 vectors to Pinecone.
+2026-05-20 22:05:31 | INFO     | src.pipeline.ingest_pipeline |   [table] 3 chunks | ~5,728 tokens | ~$0.0007
+2026-05-20 22:05:31 | INFO     | src.embeddings.embedder | Embedding batch 1/1 (3 texts)
+2026-05-20 22:05:32 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:32 | INFO     | src.embeddings.embedder | Embedded 3 texts successfully.
+2026-05-20 22:05:32 | INFO     | src.vectorstore.pinecone_client | Upserted 3 vectors → 'pdf-tables'
+2026-05-20 22:05:32 | INFO     | src.pipeline.ingest_pipeline |   [table] Upserted 3 vectors to Pinecone.
+2026-05-20 22:05:32 | INFO     | src.pipeline.ingest_pipeline |   [image] 5 chunks | ~105 tokens | ~$0.0000
+2026-05-20 22:05:32 | INFO     | src.embeddings.embedder | Embedding batch 1/1 (5 texts)
+2026-05-20 22:05:33 | INFO     | httpx | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-05-20 22:05:33 | INFO     | src.embeddings.embedder | Embedded 5 texts successfully.
+2026-05-20 22:05:33 | INFO     | src.vectorstore.pinecone_client | Upserted 5 vectors → 'pdf-images'
+2026-05-20 22:05:33 | INFO     | src.pipeline.ingest_pipeline |   [image] Upserted 5 vectors to Pinecone.
+2026-05-20 22:05:33 | INFO     | ingest |   Upserted all chunks to Pinecone.
+2026-05-20 22:05:33 | INFO     | ingest | Ingestion complete. ✓
