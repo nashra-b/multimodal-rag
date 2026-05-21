@@ -11,7 +11,9 @@ from pathlib import Path
 
 import streamlit as st
 
-from src.pipeline import IngestPipeline
+#from src.pipeline import IngestPipeline
+from src.pipeline.ingest_pipeline import IngestPipeline
+
 
 logger = logging.getLogger(__name__)
 
