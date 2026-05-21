@@ -22,7 +22,7 @@ load_dotenv()
 
 from src.pipeline        import RAGChain
 from src.vectorstore     import PineconeClient, HybridRetriever
-from src.app.components_old  import render_sidebar, render_chat_window, render_source_viewer
+from src.app.components  import render_sidebar, render_chat_window, render_source_viewer
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
