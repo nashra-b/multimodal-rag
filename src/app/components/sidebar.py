@@ -2,6 +2,8 @@
 src/app/components/sidebar.py
 ------------------------------
 Streamlit sidebar — PDF upload, ingestion controls, and config panel.
+NOTE: IngestPipeline is imported lazily (inside functions) to avoid
+loading unstructured/cv2 at startup on Streamlit Cloud.
 """
 
 import os
@@ -11,13 +13,8 @@ from pathlib import Path
 
 import streamlit as st
 
-#from src.pipeline import IngestPipeline
-from src.pipeline.ingest_pipeline import IngestPipeline
-
-
 logger = logging.getLogger(__name__)
 
-# ── Element-type colour map (used across the app) ──────────────────────────────
 ELEMENT_COLORS = {
     "text":  "#4A90D9",
     "table": "#27AE60",
@@ -26,12 +23,6 @@ ELEMENT_COLORS = {
 
 
 def render_sidebar(rag_chain) -> None:
-    """
-    Render the full sidebar.
-
-    Args:
-        rag_chain : Live RAGChain instance (needed for memory clear button)
-    """
     with st.sidebar:
         _render_logo()
         _render_upload_section()
@@ -40,8 +31,6 @@ def render_sidebar(rag_chain) -> None:
         _render_index_stats()
         _render_footer()
 
-
-# ── Logo / header ──────────────────────────────────────────────────────────────
 
 def _render_logo() -> None:
     st.markdown("""
@@ -58,16 +47,14 @@ def _render_logo() -> None:
     st.divider()
 
 
-# ── PDF upload ─────────────────────────────────────────────────────────────────
-
 def _render_upload_section() -> None:
     st.subheader("📂 Ingest a PDF")
 
     uploaded_file = st.file_uploader(
-        label       = "Upload PDF",
-        type        = ["pdf"],
-        help        = "Upload a banking / financial PDF to ingest into Pinecone.",
-        label_visibility = "collapsed",
+        label="Upload PDF",
+        type=["pdf"],
+        help="Upload a banking / financial PDF to ingest into Pinecone.",
+        label_visibility="collapsed",
     )
 
     if uploaded_file:
@@ -75,30 +62,25 @@ def _render_upload_section() -> None:
         st.caption(f"📄 **{uploaded_file.name}** — {file_size_mb:.2f} MB")
 
         col1, col2 = st.columns(2)
-
         with col1:
-            dry_run = st.checkbox(
-                "Dry run",
-                value=False,
-                help="Parse and chunk without hitting Pinecone or spending API credits."
-            )
-
+            dry_run = st.checkbox("Dry run", value=False)
         with col2:
-            reset_index = st.checkbox(
-                "Reset index",
-                value=False,
-                help="⚠️ Deletes all existing vectors before ingesting."
-            )
+            reset_index = st.checkbox("Reset index", value=False)
 
         if st.button("🚀 Ingest PDF", use_container_width=True, type="primary"):
             _run_ingestion(uploaded_file, dry_run=dry_run, reset_index=reset_index)
 
     st.divider()
 
+
 def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
-    from src.pipeline.ingest_pipeline import IngestPipeline
-#def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
-    #"""Save the uploaded file to a temp path, run the ingestion pipeline."""
+    # ── Lazy import — only load when user clicks Ingest ───────────────────────
+    try:
+        from src.pipeline.ingest_pipeline import IngestPipeline
+    except ImportError as e:
+        st.error(f"Ingestion not available in this environment: {e}")
+        return
+
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         tmp.write(uploaded_file.read())
         tmp_path = tmp.name
@@ -106,17 +88,16 @@ def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
     try:
         with st.spinner("Ingesting — this may take a few minutes …"):
             progress = st.progress(0, text="Initialising pipeline …")
-
             pipeline = IngestPipeline(dry_run=dry_run)
 
             if reset_index and not dry_run:
                 progress.progress(5, "Resetting Pinecone index …")
                 pipeline.pinecone_client.delete_index()
 
-            progress.progress(15, "Parsing PDF with unstructured.io …")
+            progress.progress(15, "Parsing PDF …")
             parsed = pipeline._step_parse(tmp_path)
 
-            progress.progress(35, "Summarising images with GPT-4o Vision …")
+            progress.progress(35, "Summarising images …")
             parsed["image_elements"] = pipeline._step_summarise_images(
                 parsed["image_elements"]
             )
@@ -137,11 +118,9 @@ def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
 
             progress.progress(100, "Done ✓")
 
-        # ── Success summary ────────────────────────────────────────────────────
         st.success(f"{'[DRY RUN] ' if dry_run else ''}Ingestion complete!")
         _render_ingestion_summary(chunks, uploaded_file.name)
 
-        # Store ingested filename in session state for the chat window
         if "ingested_files" not in st.session_state:
             st.session_state.ingested_files = []
         if uploaded_file.name not in st.session_state.ingested_files:
@@ -155,31 +134,23 @@ def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
 
 
 def _render_ingestion_summary(chunks: dict, filename: str) -> None:
-    n_text  = len(chunks.get("text",  []))
-    n_table = len(chunks.get("table", []))
-    n_image = len(chunks.get("image", []))
-
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("📄 Text",   n_text)
+        st.metric("📄 Text",   len(chunks.get("text",  [])))
     with col2:
-        st.metric("📊 Tables", n_table)
+        st.metric("📊 Tables", len(chunks.get("table", [])))
     with col3:
-        st.metric("🖼️ Images", n_image)
+        st.metric("🖼️ Images", len(chunks.get("image", [])))
 
-
-# ── Session controls ───────────────────────────────────────────────────────────
 
 def _render_session_controls(rag_chain) -> None:
     st.subheader("💬 Session")
-
     col1, col2 = st.columns(2)
     with col1:
         if st.button("🗑️ Clear chat", use_container_width=True):
             st.session_state.messages = []
             rag_chain.clear_memory()
             st.rerun()
-
     with col2:
         if st.button("🔄 Reset all", use_container_width=True):
             for key in list(st.session_state.keys()):
@@ -187,7 +158,6 @@ def _render_session_controls(rag_chain) -> None:
             rag_chain.clear_memory()
             st.rerun()
 
-    # Show ingested files
     if st.session_state.get("ingested_files"):
         st.caption("**Ingested files:**")
         for f in st.session_state.ingested_files:
@@ -196,39 +166,27 @@ def _render_session_controls(rag_chain) -> None:
     st.divider()
 
 
-# ── Config panel ───────────────────────────────────────────────────────────────
-
 def _render_config_panel() -> None:
     with st.expander("⚙️ Retrieval Config", expanded=False):
-
         st.session_state["top_k"] = st.slider(
-            "Top-K chunks",
-            min_value=1, max_value=15,
+            "Top-K chunks", min_value=1, max_value=15,
             value=st.session_state.get("top_k", 5),
-            help="Number of chunks retrieved per query."
         )
-
         st.session_state["search_namespaces"] = st.multiselect(
             "Search namespaces",
             options=["text", "table", "image"],
             default=st.session_state.get("search_namespaces", ["text", "table", "image"]),
-            help="Restrict search to specific element types."
         )
-
         st.session_state["show_sources"] = st.toggle(
             "Show source citations",
             value=st.session_state.get("show_sources", True),
         )
-
         st.session_state["stream_response"] = st.toggle(
             "Stream response",
             value=st.session_state.get("stream_response", True),
         )
-
     st.divider()
 
-
-# ── Index stats ────────────────────────────────────────────────────────────────
 
 def _render_index_stats() -> None:
     with st.expander("📊 Pinecone Index Stats", expanded=False):
@@ -237,10 +195,8 @@ def _render_index_stats() -> None:
                 from src.vectorstore import PineconeClient
                 client = PineconeClient()
                 stats  = client.index.describe_index_stats()
-
-                total = stats.total_vector_count
-                ns    = stats.namespaces or {}
-
+                total  = stats.total_vector_count
+                ns     = stats.namespaces or {}
                 st.metric("Total vectors", f"{total:,}")
                 for name, ns_stats in ns.items():
                     color = ELEMENT_COLORS.get(name, "#888")
@@ -251,11 +207,8 @@ def _render_index_stats() -> None:
                     )
             except Exception as e:
                 st.warning(f"Could not fetch stats: {e}")
-
     st.divider()
 
-
-# ── Footer ─────────────────────────────────────────────────────────────────────
 
 def _render_footer() -> None:
     st.markdown("""
