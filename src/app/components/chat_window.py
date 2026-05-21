@@ -1,9 +1,6 @@
 """
-src/app/components/chat_window.py
-----------------------------------
-Enterprise chat window — dark theme, streaming, source badges.
+src/app/components/chat_window.py — light enterprise theme
 """
-
 import logging
 import streamlit as st
 from src.pipeline.rag_chain import RAGChain
@@ -30,20 +27,18 @@ def render_chat_window(rag_chain: RAGChain) -> None:
     _init()
     _history()
     if not st.session_state.messages:
-        _empty_state(rag_chain)
+        _empty(rag_chain)
     _input(rag_chain)
 
 
-def _init() -> None:
-    for k, v in {
-        "messages": [], "last_sources": [],
-        "top_k": 5, "show_sources": True, "stream_response": True,
-    }.items():
+def _init():
+    for k, v in {"messages":[],"last_sources":[],"top_k":5,
+                 "show_sources":True,"stream_response":True}.items():
         if k not in st.session_state:
             st.session_state[k] = v
 
 
-def _history() -> None:
+def _history():
     for msg in st.session_state.messages:
         av = "👤" if msg["role"] == "user" else "📊"
         with st.chat_message(msg["role"], avatar=av):
@@ -52,35 +47,31 @@ def _history() -> None:
                 _badges(msg["sources"])
 
 
-def _empty_state(rag_chain: RAGChain) -> None:
+def _empty(rag_chain):
     st.markdown("""
     <div class="empty-card">
-      <div class="icon">📄</div>
+      <div style="font-size:2rem;">📄</div>
       <h4>No conversation yet</h4>
-      <p>Upload a PDF in the sidebar, then ask a question below<br>
-         or pick one of the suggestions to get started.</p>
+      <p>Upload a PDF in the sidebar, then ask a question<br>
+         or pick one of the suggestions below.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-lbl">Try asking</div>', unsafe_allow_html=True)
-
-    with st.container():
-        st.markdown('<div class="starter-grid">', unsafe_allow_html=True)
-        cols = st.columns(2)
-        for i, q in enumerate(STARTERS):
-            with cols[i % 2]:
-                if st.button(q, key=f"s_{i}", use_container_width=True):
-                    _ask(q, rag_chain)
-                    st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<p class="sec-label">Try asking</p>', unsafe_allow_html=True)
+    cols = st.columns(2)
+    for i, q in enumerate(STARTERS):
+        with cols[i % 2]:
+            if st.button(q, key=f"s_{i}", use_container_width=True):
+                _ask(q, rag_chain)
+                st.rerun()
 
 
-def _input(rag_chain: RAGChain) -> None:
+def _input(rag_chain):
     if prompt := st.chat_input("Ask a question about your PDF…"):
         _ask(prompt, rag_chain)
 
 
-def _ask(q: str, rag_chain: RAGChain) -> None:
+def _ask(q, rag_chain):
     st.session_state.messages.append({"role": "user", "content": q})
     with st.chat_message("user", avatar="👤"):
         st.markdown(q)
@@ -93,11 +84,11 @@ def _ask(q: str, rag_chain: RAGChain) -> None:
         if st.session_state.get("show_sources", True) and sources:
             _badges(sources)
 
-    st.session_state.messages.append({"role": "assistant", "content": answer, "sources": sources})
+    st.session_state.messages.append({"role":"assistant","content":answer,"sources":sources})
     st.session_state.last_sources = sources
 
 
-def _stream(q: str, rag_chain: RAGChain) -> tuple[str, list]:
+def _stream(q, rag_chain):
     ph, full = st.empty(), ""
     try:
         for tok in rag_chain.stream(q):
@@ -105,8 +96,7 @@ def _stream(q: str, rag_chain: RAGChain) -> tuple[str, list]:
             ph.markdown(full + "▌")
         ph.markdown(full)
     except Exception as e:
-        ph.error(str(e))
-        return str(e), []
+        ph.error(str(e)); return str(e), []
     try:
         res     = rag_chain.invoke(q)
         sources = RAGChain.format_sources(res.get("source_documents", []))
@@ -115,25 +105,22 @@ def _stream(q: str, rag_chain: RAGChain) -> tuple[str, list]:
     return full, sources
 
 
-def _batch(q: str, rag_chain: RAGChain) -> tuple[str, list]:
+def _batch(q, rag_chain):
     with st.spinner("Retrieving…"):
         try:
-            res     = rag_chain.invoke(q)
-            answer  = res.get("answer", "")
-            sources = RAGChain.format_sources(res.get("source_documents", []))
+            res    = rag_chain.invoke(q)
+            answer = res.get("answer", "")
+            srcs   = RAGChain.format_sources(res.get("source_documents", []))
             st.markdown(answer)
-            return answer, sources
+            return answer, srcs
         except Exception as e:
-            st.error(str(e))
-            return str(e), []
+            st.error(str(e)); return str(e), []
 
 
-def _badges(sources: list) -> None:
+def _badges(sources):
     html = ""
     for s in sources[:5]:
-        etype         = s.get("element_type", "text").lower()
-        cls, label    = BADGE_MAP.get(etype, ("pill-text", "📄 Text"))
-        page          = s.get("page_number")
-        page_str      = f" · p.{page}" if page else ""
-        html += f'<span class="pill {cls}">{label}{page_str}</span>'
-    st.markdown(f'<div style="margin-top:6px; padding-bottom:2px;">{html}</div>', unsafe_allow_html=True)
+        cls, label = BADGE_MAP.get(s.get("element_type","text").lower(), ("pill-text","📄 Text"))
+        pg = s.get("page_number")
+        html += f'<span class="pill {cls}">{label}{f" · p.{pg}" if pg else ""}</span>'
+    st.markdown(f'<div style="margin-top:6px;">{html}</div>', unsafe_allow_html=True)
