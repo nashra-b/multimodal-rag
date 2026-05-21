@@ -95,9 +95,10 @@ def _render_upload_section() -> None:
 
     st.divider()
 
-
 def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
-    """Save the uploaded file to a temp path, run the ingestion pipeline."""
+    from src.pipeline.ingest_pipeline import IngestPipeline
+#def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
+    #"""Save the uploaded file to a temp path, run the ingestion pipeline."""
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         tmp.write(uploaded_file.read())
         tmp_path = tmp.name
