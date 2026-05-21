@@ -1,6 +1,8 @@
 # retriever.py
-from langchain_community.retrievers import EnsembleRetriever
-from langchain_community.retrievers import BM25Retriever
+#from langchain_community.retrievers import EnsembleRetriever
+#from langchain_community.retrievers import BM25Retriever
+from langchain.retrievers.ensemble import EnsembleRetriever
+from langchain_community.retrievers.bm25 import BM25Retriever
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
 
