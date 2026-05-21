@@ -1,39 +1,23 @@
 """
-rag_chain.py
-------------
-LangChain RAG chain — compatible with LangChain 1.x (modern LCEL approach).
-No deprecated langchain.memory or langchain.chains imports.
+rag_chain.py — LangChain 1.x compatible using LCEL
 """
 
 import os
 import logging
-from typing import Iterator, Optional
-
+from typing import Iterator
 from langchain_core.documents                   import Document
 from langchain_core.prompts                     import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.output_parsers              import StrOutputParser
+from langchain_core.runnables                   import RunnablePassthrough, RunnableLambda
 from langchain_openai                           import ChatOpenAI
-#from langchain.chains                           import ConversationalRetrievalChain
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_community.chains                 import ConversationalRetrievalChain
 
 logger = logging.getLogger(__name__)
-
-# ── Prompts ────────────────────────────────────────────────────────────────────
-
-CONDENSE_QUESTION_PROMPT = ChatPromptTemplate.from_messages([
-    ("system",
-     "Given the conversation history and a follow-up question, "
-     "rewrite the follow-up as a fully self-contained question. "
-     "If no rewrite is needed, return it unchanged."),
-    MessagesPlaceholder(variable_name="chat_history"),
-    ("human", "{question}"),
-])
 
 QA_SYSTEM = """You are an expert financial document analyst.
 Answer ONLY from the provided context. Do not hallucinate.
 For numeric questions, cite the exact figure and source page.
-If context is insufficient, say so clearly.
-End each fact with: Source: [element_type], Page [page_number]."""
+If context is insufficient, say so clearly."""
 
 QA_PROMPT = ChatPromptTemplate.from_messages([
     ("system", QA_SYSTEM),
@@ -42,12 +26,18 @@ QA_PROMPT = ChatPromptTemplate.from_messages([
 ])
 
 
-class RAGChain:
-    """
-    Conversational RAG chain using ConversationalRetrievalChain
-    with manual chat history management (LangChain 1.x compatible).
-    """
+def format_docs(docs: list[Document]) -> str:
+    parts = []
+    for i, doc in enumerate(docs, 1):
+        m = doc.metadata
+        parts.append(
+            f"[CHUNK {i} | TYPE: {m.get('element_type','text').upper()} | "
+            f"PAGE: {m.get('page_number','?')}]\n{doc.page_content}"
+        )
+    return "\n\n---\n\n".join(parts)
 
+
+class RAGChain:
     def __init__(
         self,
         retriever,
@@ -59,6 +49,7 @@ class RAGChain:
         self.retriever     = retriever
         self.memory_window = memory_window
         self.history       = ChatMessageHistory()
+        self._last_docs    = []
 
         self.llm = ChatOpenAI(
             model          = model,
@@ -67,44 +58,47 @@ class RAGChain:
             openai_api_key = os.getenv("OPENAI_API_KEY"),
         )
 
-        self.chain = ConversationalRetrievalChain.from_llm(
-            llm                    = self.llm,
-            retriever              = self.retriever,
-            return_source_documents= True,
-            verbose                = False,
+        # LCEL chain
+        self.chain = (
+            RunnablePassthrough.assign(
+                context = RunnableLambda(
+                    lambda x: format_docs(self.retriever.invoke(x["question"]))
+                )
+            )
+            | QA_PROMPT
+            | self.llm
+            | StrOutputParser()
         )
 
-        logger.info(f"RAGChain ready | model={model} | temperature={temperature}")
-
-    # ── Public API ─────────────────────────────────────────────────────────────
+        logger.info(f"RAGChain ready | model={model}")
 
     def invoke(self, question: str) -> dict:
-        # Keep only last N exchanges
         messages = self.history.messages[-(self.memory_window * 2):]
 
-        result = self.chain.invoke({
+        # Retrieve docs separately so we can return them
+        self._last_docs = self.retriever.invoke(question)
+
+        answer = self.chain.invoke({
             "question":    question,
             "chat_history": messages,
         })
 
         self.history.add_user_message(question)
-        self.history.add_ai_message(result.get("answer", ""))
+        self.history.add_ai_message(answer)
 
         return {
-            "answer":           result.get("answer", ""),
-            "source_documents": result.get("source_documents", []),
+            "answer":           answer,
+            "source_documents": self._last_docs,
             "question":         question,
         }
 
     def stream(self, question: str) -> Iterator[str]:
-        """Streaming mode — yields tokens, then stores in history."""
-        messages = self.history.messages[-(self.memory_window * 2):]
-        full     = ""
-        for chunk in self.chain.stream({"question": question, "chat_history": messages}):
-            token = chunk.get("answer", "")
-            if token:
-                full += token
-                yield token
+        messages     = self.history.messages[-(self.memory_window * 2):]
+        self._last_docs = self.retriever.invoke(question)
+        full         = ""
+        for token in self.chain.stream({"question": question, "chat_history": messages}):
+            full += token
+            yield token
         self.history.add_user_message(question)
         self.history.add_ai_message(full)
 
@@ -114,23 +108,21 @@ class RAGChain:
     def get_chat_history(self) -> list:
         return self.history.messages
 
-    # ── Source helpers ─────────────────────────────────────────────────────────
-
     @staticmethod
     def format_sources(source_documents: list[Document]) -> list[dict]:
         seen, sources = set(), []
         for doc in source_documents:
-            meta = doc.metadata
-            key  = (meta.get("source"), meta.get("page_number"), meta.get("chunk_index", 0))
+            m   = doc.metadata
+            key = (m.get("source"), m.get("page_number"), m.get("chunk_index", 0))
             if key in seen:
                 continue
             seen.add(key)
             sources.append({
-                "element_type": meta.get("element_type", "text"),
-                "page_number":  meta.get("page_number"),
-                "source":       meta.get("source", "unknown"),
+                "element_type": m.get("element_type", "text"),
+                "page_number":  m.get("page_number"),
+                "source":       m.get("source", "unknown"),
                 "snippet":      doc.page_content[:200].strip() + "…",
-                "chunk_index":  meta.get("chunk_index", 0),
+                "chunk_index":  m.get("chunk_index", 0),
             })
         return sources
 
