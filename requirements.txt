@@ -23,8 +23,7 @@ pinecone==5.0.0
 
 # ── PDF Parsing — unstructured.io ──────────────────────────────────────────────
 # The [pdf,image] extras pull in all required sub-dependencies
-unstructured==0.15.0
-#unstructured[pdf,image]==0.15.0
+
 unstructured[pdf,image]==0.11.8
 #unstructured-inference==0.7.36         # hi_res layout model
 #unstructured-pytesseract==0.3.12       # OCR fallback for scanned pages
