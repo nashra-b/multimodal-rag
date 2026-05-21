@@ -17,7 +17,7 @@ Run:
 import os
 import sys
 import logging
-from src.pipeline import rag_chain  # keep only this
+
 from pathlib import Path
 
 # ── Ensure project root is on the path ────────────────────────────────────────
