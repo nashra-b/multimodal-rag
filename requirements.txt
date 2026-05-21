@@ -21,11 +21,6 @@ tiktoken==0.8.0
 pinecone==5.0.0
 
 
-
-unstructured[pdf,image]==0.11.8
-unstructured-inference>=0.7.0
-unstructured-pytesseract>=0.3.0
-
 # ── PDF Parsing — unstructured.io ──────────────────────────────────────────────
 # The [pdf,image] extras pull in all required sub-dependencies
 unstructured==0.15.0
