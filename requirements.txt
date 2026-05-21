@@ -30,5 +30,7 @@ datasets>=4.0.0
 # UI
 streamlit>=1.38.0
 
+opencv-python-headless>=4.8.0
+
 # Utils
 python-dotenv>=1.0.1
