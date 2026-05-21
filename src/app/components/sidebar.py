@@ -1,11 +1,10 @@
 """
 src/app/components/sidebar.py
 ------------------------------
-Enterprise sidebar — PDF upload, ingestion controls, config panel.
+Enterprise sidebar — dark theme.
 IngestPipeline is imported lazily to avoid loading unstructured at startup.
 """
 
-import os
 import tempfile
 import logging
 from pathlib import Path
@@ -14,12 +13,6 @@ import streamlit as st
 
 logger = logging.getLogger(__name__)
 
-ELEMENT_COLORS = {
-    "text":  "#2563EB",
-    "table": "#16A34A",
-    "image": "#D97706",
-}
-
 
 def render_sidebar(rag_chain) -> None:
     with st.sidebar:
@@ -27,29 +20,28 @@ def render_sidebar(rag_chain) -> None:
         st.divider()
         _render_upload_section()
         st.divider()
-        _render_session_controls(rag_chain)
+        _render_session(rag_chain)
         st.divider()
-        _render_config_panel()
+        _render_config()
         _render_footer()
 
 
-# ── Brand ──────────────────────────────────────────────────────────────────────
-
 def _render_brand() -> None:
     st.markdown("""
-    <div style="padding: 0.25rem 0 0.5rem;">
+    <div style="padding:0.4rem 0 0.6rem;">
       <div style="display:flex; align-items:center; gap:10px;">
         <div style="
-          width:34px; height:34px; border-radius:8px;
-          background:#1C1B18; color:#F7F6F3;
+          width:32px; height:32px; border-radius:8px;
+          background:#E8622A;
           display:flex; align-items:center; justify-content:center;
-          font-size:0.75rem; font-weight:700; letter-spacing:-0.01em;
+          font-size:0.68rem; font-weight:700; color:#fff;
         ">PDF</div>
         <div>
-          <div style="font-size:0.95rem; font-weight:700; color:#1C1B18;">
+          <div style="font-size:0.88rem; font-weight:700; color:#E0DDD8;">
             PDF Intelligence
           </div>
-          <div style="font-size:0.68rem; color:#8C897F; letter-spacing:0.04em; text-transform:uppercase;">
+          <div style="font-size:0.62rem; color:#555; letter-spacing:0.08em;
+                      text-transform:uppercase; font-family:'DM Mono',monospace;">
             Enterprise RAG
           </div>
         </div>
@@ -58,85 +50,85 @@ def _render_brand() -> None:
     """, unsafe_allow_html=True)
 
 
-# ── Upload section ─────────────────────────────────────────────────────────────
-
 def _render_upload_section() -> None:
-    st.markdown('<div class="section-label">Ingest Document</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-lbl">Ingest Document</div>', unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader(
-        label="Upload PDF",
+    uploaded = st.file_uploader(
+        "Upload PDF",
         type=["pdf"],
-        help="Upload a banking or financial PDF to parse and store in Pinecone.",
         label_visibility="collapsed",
+        help="Upload a banking or financial PDF",
     )
 
-    col1, col2 = st.columns(2)
-    with col1:
-        dry_run = st.toggle("Dry run", value=False, help="Parse only — skip embedding & Pinecone")
-    with col2:
-        reset_index = st.toggle("Reset index", value=False, help="Wipe Pinecone index before ingesting")
+    c1, c2 = st.columns(2)
+    with c1:
+        dry_run = st.toggle("Dry run", value=False, help="Parse only — skip Pinecone")
+    with c2:
+        reset   = st.toggle("Reset index", value=False, help="Wipe Pinecone first")
 
-    if uploaded_file and st.button("⚡ Ingest PDF", use_container_width=True, type="primary"):
-        _run_ingestion(uploaded_file, dry_run, reset_index)
+    if uploaded and st.button("⚡  Ingest PDF", use_container_width=True, type="primary"):
+        _run_ingestion(uploaded, dry_run, reset)
 
 
 def _run_ingestion(uploaded_file, dry_run: bool, reset_index: bool) -> None:
-    from src.pipeline.ingest_pipeline import IngestPipeline  # lazy import
+    from src.pipeline.ingest_pipeline import IngestPipeline
 
-    progress  = st.progress(0, text="Saving file…")
-    status_box = st.empty()
+    bar    = st.progress(0, text="Saving file…")
+    status = st.empty()
 
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             tmp.write(uploaded_file.read())
             tmp_path = tmp.name
 
-        progress.progress(15, text="Initialising pipeline…")
+        bar.progress(15, text="Initialising pipeline…")
         pipeline = IngestPipeline(dry_run=dry_run)
 
         if reset_index and not dry_run:
-            status_box.warning("Resetting Pinecone index…")
+            status.warning("Resetting Pinecone index…")
             from src.vectorstore import PineconeClient
             PineconeClient().delete_index()
 
-        progress.progress(30, text="Parsing PDF (unstructured.io)…")
+        bar.progress(35, text="Parsing with unstructured.io…")
         summary = pipeline.run(tmp_path)
-        progress.progress(100, text="Done!")
+        bar.progress(100, text="Done!")
+        status.empty()
 
-        status_box.empty()
-        st.success("Ingestion complete!")
+        st.markdown("""
+        <div style="
+          background:#152518; border:1px solid #1E3D22; border-radius:8px;
+          padding:0.6rem 0.8rem; margin:0.5rem 0;
+          font-size:0.78rem; color:#4ADE80; font-weight:600;
+        ">✓ Ingestion complete</div>
+        """, unsafe_allow_html=True)
 
-        # Stats cards
         c1, c2, c3 = st.columns(3)
-        c1.metric("Text",   summary.get("text_chunks", 0))
+        c1.metric("Text",   summary.get("text_chunks",  0))
         c2.metric("Tables", summary.get("table_chunks", 0))
         c3.metric("Images", summary.get("image_chunks", 0))
-
         st.session_state["ingested_file"] = uploaded_file.name
 
     except Exception as exc:
         logger.exception("Ingestion failed")
         st.error(f"Ingestion failed: {exc}")
-        progress.empty()
+        bar.empty()
     finally:
         if "tmp_path" in locals():
             Path(tmp_path).unlink(missing_ok=True)
 
 
-# ── Session controls ───────────────────────────────────────────────────────────
+def _render_session(rag_chain) -> None:
+    st.markdown('<div class="section-lbl">Session</div>', unsafe_allow_html=True)
 
-def _render_session_controls(rag_chain) -> None:
-    st.markdown('<div class="section-label">Session</div>', unsafe_allow_html=True)
-
-    ingested = st.session_state.get("ingested_file")
-    if ingested:
+    fname = st.session_state.get("ingested_file")
+    if fname:
         st.markdown(
-            f'<div style="font-size:0.78rem; color:#16A34A; margin-bottom:0.5rem;">'
-            f'✓ <strong>{ingested}</strong> indexed</div>',
+            f'<div style="font-size:0.73rem; color:#4ADE80; margin-bottom:0.5rem;">'
+            f'✓&nbsp; <span style="font-family:DM Mono,monospace;">{fname}</span></div>',
             unsafe_allow_html=True,
         )
 
-    if st.button("🗑 Clear conversation", use_container_width=True):
+    if st.button("🗑  Clear conversation", use_container_width=True):
         st.session_state.messages     = []
         st.session_state.last_sources = []
         if hasattr(rag_chain, "memory") and rag_chain.memory:
@@ -144,33 +136,23 @@ def _render_session_controls(rag_chain) -> None:
         st.rerun()
 
 
-# ── Config panel ───────────────────────────────────────────────────────────────
-
-def _render_config_panel() -> None:
-    with st.expander("⚙️ Retrieval settings", expanded=False):
+def _render_config() -> None:
+    with st.expander("⚙  Retrieval settings", expanded=False):
         st.session_state["top_k"] = st.slider(
-            "Top-K chunks", min_value=2, max_value=15,
-            value=st.session_state.get("top_k", 5),
-            help="Number of chunks retrieved per query",
+            "Top-K chunks", 2, 15, st.session_state.get("top_k", 5),
+            help="Chunks retrieved per query",
         )
-        st.session_state["show_sources"] = st.toggle(
-            "Show citations", value=st.session_state.get("show_sources", True),
-        )
-        st.session_state["stream_response"] = st.toggle(
-            "Stream response", value=st.session_state.get("stream_response", True),
-        )
+        st.session_state["show_sources"]    = st.toggle("Show citations",   value=st.session_state.get("show_sources",    True))
+        st.session_state["stream_response"] = st.toggle("Stream responses", value=st.session_state.get("stream_response", True))
 
-
-# ── Footer ─────────────────────────────────────────────────────────────────────
 
 def _render_footer() -> None:
     st.markdown("""
     <div style="
-      position: absolute; bottom: 1.25rem; left: 0; right: 0;
-      text-align: center;
-      font-size: 0.68rem;
-      color: #8C897F;
-      letter-spacing: 0.04em;
+      position:absolute; bottom:1rem; left:0; right:0;
+      text-align:center;
+      font-size:0.62rem; color:#333;
+      letter-spacing:0.06em; font-family:'DM Mono',monospace;
     ">
       unstructured.io · Pinecone · LangChain · GPT-4o
     </div>
