@@ -12,8 +12,9 @@ from typing import Iterator, Optional
 from langchain_core.documents                   import Document
 from langchain_core.prompts                     import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai                           import ChatOpenAI
-from langchain.chains                           import ConversationalRetrievalChain
+#from langchain.chains                           import ConversationalRetrievalChain
 from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.chains                 import ConversationalRetrievalChain
 
 logger = logging.getLogger(__name__)
 
