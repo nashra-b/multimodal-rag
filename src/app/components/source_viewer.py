@@ -1,4 +1,4 @@
- """
+"""
 src/app/components/source_viewer.py
 -------------------------------------
 Enterprise source citations panel — dark theme.
